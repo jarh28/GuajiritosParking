@@ -1,0 +1,22 @@
+{
+  "name": "guajiritosparking",
+  "version": "1.0.0",
+  "description": "Rest API for a small parking application.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarh28/GuajiritosParking.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarh28/GuajiritosParking/issues"
+  },
+  "homepage": "https://github.com/jarh28/GuajiritosParking#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
