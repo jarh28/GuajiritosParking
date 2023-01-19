@@ -1,10 +1,17 @@
 const { Router } = require("express");
 const { Type, Vehicle, Stay, Amount } = require("../models");
 const { leavingDispatcher } = require("../actions/leaving.actions");
+const {
+    ensureToken,
+    verifyToken,
+} = require("../middlewares/security.middlewares");
 
 const BASE_ROUTE = "/vehicles";
 
 const vehicleRouter = Router();
+
+vehicleRouter.use(ensureToken);
+vehicleRouter.use(verifyToken);
 
 vehicleRouter.get(BASE_ROUTE, async (req, res) => {
     try {
@@ -12,7 +19,7 @@ vehicleRouter.get(BASE_ROUTE, async (req, res) => {
         res.json(vehicles);
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -29,7 +36,7 @@ vehicleRouter.patch(`${BASE_ROUTE}/entry`, async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -46,7 +53,7 @@ vehicleRouter.patch(`${BASE_ROUTE}/leaving`, async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -59,7 +66,7 @@ vehicleRouter.post(`${BASE_ROUTE}/enroll/official`, async (req, res) => {
         res.json({ status: 200, message: "successfully enrolled" });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -72,7 +79,7 @@ vehicleRouter.post(`${BASE_ROUTE}/enroll/resident`, async (req, res) => {
         res.json({ status: 200, message: "successfully enrolled" });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -83,7 +90,7 @@ vehicleRouter.patch(`${BASE_ROUTE}/start-month`, async (req, res) => {
         res.json({ status: 200, message: "month successfully started" });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -104,7 +111,7 @@ vehicleRouter.get(`${BASE_ROUTE}/payment-report`, async (req, res) => {
         });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 

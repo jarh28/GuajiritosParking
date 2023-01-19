@@ -1,9 +1,16 @@
 const { Router } = require("express");
 const { Type } = require("../models");
+const {
+    ensureToken,
+    verifyToken,
+} = require("../middlewares/security.middlewares");
 
 const BASE_ROUTE = "/types";
 
 const typeRouter = Router();
+
+typeRouter.use(ensureToken);
+typeRouter.use(verifyToken);
 
 typeRouter.get(BASE_ROUTE, async (req, res) => {
     try {
@@ -11,7 +18,7 @@ typeRouter.get(BASE_ROUTE, async (req, res) => {
         res.json(types);
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -24,7 +31,7 @@ typeRouter.get(`${BASE_ROUTE}/:name`, async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -35,7 +42,7 @@ typeRouter.post(BASE_ROUTE, async (req, res) => {
         res.json({ status: 200, message: "successfully created" });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -49,7 +56,7 @@ typeRouter.patch(`${BASE_ROUTE}/:id`, async (req, res) => {
         }
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
@@ -60,7 +67,7 @@ typeRouter.delete(`${BASE_ROUTE}/:id`, async (req, res) => {
         res.json({ status: 200, message: "successfully removed" });
     } catch (err) {
         console.error(err);
-        res.json({ status: 500, message: "internal server error" });
+        res.sendStatus(500);
     }
 });
 
